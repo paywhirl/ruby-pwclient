@@ -12,17 +12,11 @@
 # api_secret = '<your_secret_key_here>'
 # paywhirl = PayWhirl.new(api_key, api_secret)
 # paywhirl.<method>
-#
-# IMPORTANT:
-# to use the api you must first 'gem install faraday'
-#
+
+
+require 'paywhirl/version'
 require 'json'
-begin
-  require 'faraday'
-rescue LoadError
-  puts("Missing dependency: faraday. You can remedy this with 'gem install faraday'")
-  exit
-end
+require 'faraday'
 
 
 class PayWhirl
