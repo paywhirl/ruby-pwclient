@@ -37,6 +37,21 @@ class PayWhirl
     return self.get(cust)
   end
 
+  def get_addresses(customer_id = nil)
+    cust = "/customer/addresses/#{customer_id}"
+    return self.get(cust)
+  end
+
+  def get_address(address_id = nil)
+    cust = "/customer/address/#{address_id}"
+    return self.get(cust)
+  end
+
+  def get_profile(customer_id = nil)
+    cust = "/customer/profile/#{customer_id}"
+    return self.get(cust)
+  end
+
   def create_customer(data = nil)
     return self.post('/create/customer', data)
   end
@@ -113,9 +128,25 @@ class PayWhirl
     return self.get(format)
   end
 
-   def get_invoices(customer_id = nil)
-    format = "/invoices/#{customer_id}"
+   def get_invoices(customer_id = nil, all_invoices = 0)
+    format = "/invoices/#{customer_id}/#{all_invoices}"
     return self.get(format)
+   end
+
+   def process_invoice(invoice_id = nil)
+    format = "/invoice/#{invoice_id}/process"
+    return self.post(format)
+   end
+
+   def update_invoice_card(invoice_id = nil, card_id = nil)
+    data = {'card_id'=>card_id}
+    format = "/invoice/#{invoice_id}/card"
+    return self.post(format, data)
+   end
+
+   def create_invoice(data = nil)
+    format = "/invoices"
+    return self.post(format, data)
    end
 
    def get_gateways()
