@@ -178,6 +178,10 @@ class PayWhirl
     return self.get(format)
   end
 
+  def send_email(data = nil)
+    return self.post('/send-email', data)
+  end
+
   def get_account()
     return self.get('/account')
   end
