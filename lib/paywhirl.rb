@@ -98,8 +98,11 @@ class PayWhirl
     return self.post('/subscribe/customer', data)
   end
 
-  def update_subscription(subscription_id = nil, plan_id = nil)
+  def update_subscription(subscription_id = nil, plan_id = nil, quantity = nil)
     data = {'subscription_id'=>subscription_id, 'plan_id'=>plan_id}
+    if (quantity) then
+      data.merge!(quantity: quantity)
+    end
     return self.post('/update/subscription', data)
   end
 
