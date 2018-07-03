@@ -147,6 +147,11 @@ class PayWhirl
     return self.post(format, data)
    end
 
+   def update_invoice_items(invoice_id = nil, line_items = nil)
+    format = "/invoice/#{invoice_id}/items"
+    return self.post(format, line_items)
+   end
+
    def create_invoice(data = nil)
     format = "/invoices"
     return self.post(format, data)
