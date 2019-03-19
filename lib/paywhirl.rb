@@ -52,6 +52,10 @@ class PayWhirl
     return self.get(cust)
   end
 
+  def auth_customer(email = nil, password = nil)
+    return self.post('/auth/customer', email: email, password: password)
+  end
+
   def create_customer(data = nil)
     return self.post('/create/customer', data)
   end
