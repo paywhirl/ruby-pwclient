@@ -145,6 +145,11 @@ class PayWhirl
     return self.post(format)
    end
 
+   def mark_invoice_as_paid(invoice_id = nil)
+    format = "/invoice/#{invoice_id}/mark-as-paid"
+    return self.post(format)
+   end
+
    def update_invoice_card(invoice_id = nil, card_id = nil)
     data = {'card_id'=>card_id}
     format = "/invoice/#{invoice_id}/card"
