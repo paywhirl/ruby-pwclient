@@ -184,6 +184,10 @@ class PayWhirl
     return self.get(format)
   end
 
+  def refund_charge(charge_id, data = nil)
+    return self.post("/refund/charge/#{charge_id}", data)
+  end
+
   def get_card(customer_id = nil)
     format = "/card/#{customer_id}"
     return self.get(format)
