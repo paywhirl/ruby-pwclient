@@ -64,6 +64,12 @@ class PayWhirl
     return self.post('/update/customer', data)
   end
 
+  def delete_customer(id = nil, forget = nil)
+    data = {'id' => id}
+    data['forget'] = forget unless forget.nil?
+    return self.post('/delete/customer', data)
+  end
+
   def update_answer(data = nil)
     return self.post('/update/answer', data)
   end
