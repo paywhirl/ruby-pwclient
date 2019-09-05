@@ -146,9 +146,9 @@ class PayWhirl
     return self.get(format)
    end
 
-   def process_invoice(invoice_id = nil)
+   def process_invoice(invoice_id = nil, data = nil)
     format = "/invoice/#{invoice_id}/process"
-    return self.post(format)
+    return self.post(format, data)
    end
 
    def mark_invoice_as_paid(invoice_id = nil)
