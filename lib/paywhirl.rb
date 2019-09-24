@@ -156,6 +156,16 @@ class PayWhirl
     return self.post(format)
    end
 
+   def add_promo_code_to_invoice(invoice_id = nil, promo_code = nil)
+    format = "/invoice/#{invoice_id}/add-promo"
+    return self.post(format, {'promo_code' => promo_code})
+   end
+
+   def remove_promo_code_from_invoice(invoice_id = nil)
+    format = "/invoice/#{invoice_id}/remove-promo"
+    return self.post(format)
+   end
+
    def update_invoice_card(invoice_id = nil, card_id = nil)
     data = {'card_id'=>card_id}
     format = "/invoice/#{invoice_id}/card"
