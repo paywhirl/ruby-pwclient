@@ -182,6 +182,11 @@ class PayWhirl
     return self.post(format, data)
    end
 
+   def delete_invoice(invoice_id = nil)
+    data = {'id'=>invoice_id}
+    return self.post('/delete/invoice', data)
+  end
+
    def get_gateways()
      return self.get('/gateways')
    end
