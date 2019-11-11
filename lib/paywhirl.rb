@@ -22,10 +22,8 @@ require 'faraday'
 # PayWhirl API Client
 class PayWhirl
   def initialize(api_key, api_secret, api_base = 'https://api.paywhirl.com')
-    @api_key = api_key.to_s
-    @api_secret = api_secret.to_s
-    @api_base = api_base.to_s
-    @headers = { api_key: @api_key, api_secret: @api_secret }
+    @api_base = api_base
+    @headers = { api_key: api_key, api_secret: api_secret }
   end
 
   def get_customers(data = nil)
