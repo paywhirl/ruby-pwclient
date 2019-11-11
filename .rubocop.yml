@@ -1,0 +1,11 @@
+Gemspec/RequiredRubyVersion:
+  Enabled: false
+
+Metrics/ClassLength:
+  Max: 400
+
+Metrics/LineLength:
+  Max: 100
+
+Naming/AccessorMethodName:
+  Enabled: false
