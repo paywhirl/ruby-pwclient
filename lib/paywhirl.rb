@@ -277,19 +277,19 @@ class PayWhirl
     post('/multiauth', data)
   end
 
-  def post(endpoint = nil, params = nil)
-    conn = Faraday.new(url: @api_base)
-    conn.headers = @headers
-    response = conn.post(endpoint, params)
-    json_object = JSON.parse(response.body)
-    json_object
+  protected
+
+  def request(method, path, params = nil)
+    conn = Faraday.new(url: @api_base, headers: @headers)
+    response = conn.public_send(method, path, params)
+    JSON.parse(response.body)
   end
 
-  def get(endpoint = nil, params = nil)
-    conn = Faraday.new(url: @api_base)
-    conn.headers = @headers
-    response = conn.get(endpoint, params)
-    json_object = JSON.parse(response.body)
-    json_object
+  def post(path, params = nil)
+    request(:post, path, params)
+  end
+
+  def get(path, params = nil)
+    request(:get, path, params)
   end
 end
