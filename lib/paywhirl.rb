@@ -26,225 +26,209 @@ class PayWhirl
     @headers = { api_key: api_key, api_secret: api_secret }
   end
 
-  def get_customers(data = nil)
-    get('/customers', data)
+  def get_customers(params = {})
+    get('/customers', params)
   end
 
-  def get_customer(customer_id = nil)
-    cust = "/customer/#{customer_id}"
-    get(cust)
+  def get_customer(customer_id)
+    get("/customer/#{customer_id}")
   end
 
-  def get_addresses(customer_id = nil)
-    cust = "/customer/addresses/#{customer_id}"
-    get(cust)
+  def get_addresses(customer_id)
+    get("/customer/addresses/#{customer_id}")
   end
 
-  def get_address(address_id = nil)
-    cust = "/customer/address/#{address_id}"
-    get(cust)
+  def get_address(address_id)
+    get("/customer/address/#{address_id}")
   end
 
-  def get_profile(customer_id = nil)
-    cust = "/customer/profile/#{customer_id}"
-    get(cust)
+  def get_profile(customer_id)
+    get("/customer/profile/#{customer_id}")
   end
 
-  def auth_customer(email = nil, password = nil)
+  def auth_customer(email, password)
     post('/auth/customer', email: email, password: password)
   end
 
-  def create_customer(data = nil)
-    post('/create/customer', data)
+  def create_customer(params)
+    post('/create/customer', params)
   end
 
-  def update_customer(data = nil)
-    post('/update/customer', data)
+  def update_customer(params)
+    post('/update/customer', params)
   end
 
-  def delete_customer(id = nil, forget = nil)
-    data = { 'id' => id }
-    data['forget'] = forget unless forget.nil?
-    post('/delete/customer', data)
+  def delete_customer(id, forget = false)
+    params = { id: id, forget: forget ? '1' : nil }
+    post('/delete/customer', params)
   end
 
-  def update_answer(data = nil)
-    post('/update/answer', data)
+  def get_questions(params_or_limit = 100)
+    params =
+      if params_or_limit.respond_to?(:to_i)
+        { limit: params_or_limit }
+      else
+        params_or_limit
+      end
+
+    get('/questions', params)
   end
 
-  def get_questions(data = 100)
-    data = { 'limit' => data } if data.respond_to?(:to_i)
-    get('/questions', data)
+  def get_answers(params_or_customer_id)
+    params =
+      if params_or_customer_id.respond_to?(:to_i)
+        { customer_id: params_or_customer_id }
+      else
+        params_or_customer_id
+      end
+
+    get('/answers', params)
   end
 
-  def get_answers(data = nil)
-    data = { 'customer_id' => data } if data.respond_to?(:to_i)
-    get('/answers', data)
+  def update_answer(params)
+    post('/update/answer', params)
   end
 
-  def get_plans(data = nil)
-    get('/plans', data)
+  def get_plans(params = {})
+    get('/plans', params)
   end
 
-  def get_plan(customer_id = nil)
-    plan = "/plan/#{customer_id}"
-    get(plan)
+  def get_plan(plan_id = nil)
+    get("/plan/#{plan_id}")
   end
 
-  def create_plan(data = nil)
-    post('/create/plan', data)
+  def create_plan(params)
+    post('/create/plan', params)
   end
 
-  def update_plan(data = nil)
-    post('/update/plan', data)
+  def update_plan(params)
+    post('/update/plan', params)
   end
 
-  def get_subscriptions(customer_id = nil)
-    subs = "/subscriptions/#{customer_id}"
-    get(subs)
+  def get_subscriptions(customer_id)
+    get("/subscriptions/#{customer_id}")
   end
 
-  def get_subscription(customer_id = nil)
-    sub = "/subscription/#{customer_id}"
-    get(sub)
+  def get_subscription(subscription_id)
+    get("/subscription/#{subscription_id}")
   end
 
-  def get_subscribers(data = nil)
-    get('/subscribers', data)
+  def get_subscribers(params = {})
+    get('/subscribers', params)
   end
 
-  def subscribe_customer(data = nil)
-    post('/subscribe/customer', data)
+  def subscribe_customer(params)
+    post('/subscribe/customer', params)
   end
 
-  def update_subscription(subscription_id = nil, plan_id = nil, quantity = nil)
-    data = { 'subscription_id' => subscription_id, 'plan_id' => plan_id }
-    data.merge!(quantity: quantity) if quantity
-    post('/update/subscription', data)
+  def update_subscription(subscription_id, plan_id, quantity = nil)
+    params = { subscription_id: subscription_id, plan_id: plan_id }
+    params[:quantity] = quantity if quantity
+    post('/update/subscription', params)
   end
 
-  def unsubscribe_customer(subscription_id = nil)
-    data = { 'subscription_id' => subscription_id }
-    post('/unsubscribe/customer', data)
+  def unsubscribe_customer(subscription_id)
+    post('/unsubscribe/customer', subscription_id: subscription_id)
   end
 
-  def get_invoice(customer_id = nil)
-    format = "/invoice/#{customer_id}"
-    get(format)
+  def get_invoices(customer_id, all_invoices = false)
+    get("/invoices/#{customer_id}", all: all_invoices ? '1' : nil)
   end
 
-  def get_invoices(customer_id = nil, all_invoices = 0)
-    format = "/invoices/#{customer_id}/#{all_invoices}"
-    get(format)
+  def get_invoice(invoice_id)
+    get("/invoice/#{invoice_id}")
   end
 
-  def process_invoice(invoice_id = nil, data = nil)
-    format = "/invoice/#{invoice_id}/process"
-    post(format, data)
+  def process_invoice(invoice_id, params = {})
+    post("/invoice/#{invoice_id}/process", params)
   end
 
-  def mark_invoice_as_paid(invoice_id = nil)
-    format = "/invoice/#{invoice_id}/mark-as-paid"
-    post(format)
+  def mark_invoice_as_paid(invoice_id)
+    post("/invoice/#{invoice_id}/mark-as-paid")
   end
 
-  def add_promo_code_to_invoice(invoice_id = nil, promo_code = nil)
-    format = "/invoice/#{invoice_id}/add-promo"
-    post(format, 'promo_code' => promo_code)
+  def add_promo_code_to_invoice(invoice_id, promo_code)
+    post("/invoice/#{invoice_id}/add-promo", promo_code: promo_code)
   end
 
-  def remove_promo_code_from_invoice(invoice_id = nil)
-    format = "/invoice/#{invoice_id}/remove-promo"
-    post(format)
+  def remove_promo_code_from_invoice(invoice_id)
+    post("/invoice/#{invoice_id}/remove-promo")
   end
 
-  def update_invoice_card(invoice_id = nil, card_id = nil)
-    data = { 'card_id' => card_id }
-    format = "/invoice/#{invoice_id}/card"
-    post(format, data)
+  def update_invoice_card(invoice_id, card_id)
+    post("/invoice/#{invoice_id}/card", card_id: card_id)
   end
 
-  def update_invoice_items(invoice_id = nil, line_items = nil)
-    format = "/invoice/#{invoice_id}/items"
-    post(format, line_items)
+  def update_invoice_items(invoice_id, line_items = {})
+    post("/invoice/#{invoice_id}/items", line_items)
   end
 
-  def create_invoice(data = nil)
-    format = '/invoices'
-    post(format, data)
+  def create_invoice(params)
+    post('/invoices', params)
   end
 
-  def delete_invoice(invoice_id = nil)
-    data = { 'id' => invoice_id }
-    post('/delete/invoice', data)
+  def delete_invoice(invoice_id)
+    post('/delete/invoice', id: invoice_id)
   end
 
   def get_gateways
     get('/gateways')
   end
 
-  def get_gateway(customer_id = nil)
-    format = "/gateway/#{customer_id}"
-    get(format)
+  def get_gateway(gateway_id)
+    get("/gateway/#{gateway_id}")
   end
 
-  def create_charge(data = nil)
-    post('/create/charge', data)
+  def create_charge(params)
+    post('/create/charge', params)
   end
 
-  def get_charge(customer_id = nil)
-    format = "/charge/#{customer_id}"
-    get(format)
+  def get_charge(charge_id)
+    get("/charge/#{charge_id}")
   end
 
-  def refund_charge(charge_id, data = nil)
-    post("/refund/charge/#{charge_id}", data)
+  def refund_charge(charge_id, params = {})
+    post("/refund/charge/#{charge_id}", params)
   end
 
-  def get_card(customer_id = nil)
-    format = "/card/#{customer_id}"
-    get(format)
+  def get_cards(customer_id)
+    get("/cards/#{customer_id}")
   end
 
-  def get_cards(customer_id = nil)
-    format = "/cards/#{customer_id}"
-    get(format)
+  def get_card(card_id)
+    get("/card/#{card_id}")
   end
 
-  def create_card(data = nil)
-    post('/create/card', data)
+  def create_card(params)
+    post('/create/card', params)
   end
 
-  def delete_card(customer_id = nil)
-    data = { 'id' => customer_id }
-    post('/delete/card', data)
+  def delete_card(card_id)
+    post('/delete/card', id: card_id)
   end
 
   def get_promos
     get('/promo')
   end
 
-  def get_promo(customer_id = nil)
-    format = "/promo/#{customer_id}"
-    get(format)
+  def get_promo(promo_id)
+    get("/promo/#{promo_id}")
   end
 
-  def create_promo(data = nil)
-    post('/create/promo', data)
+  def create_promo(params)
+    post('/create/promo', params)
   end
 
-  def delete_promo(promo_id = nil)
-    data = { 'id' => promo_id }
-    post('/delete/promo', data)
+  def delete_promo(promo_id)
+    post('/delete/promo', id: promo_id)
   end
 
-  def get_email_template(customer_id = nil)
-    format = "/email/#{customer_id}"
-    get(format)
+  def get_email_template(template_id)
+    get("/email/#{template_id}")
   end
 
-  def send_email(data = nil)
-    post('/send-email', data)
+  def send_email(params)
+    post('/send-email', params)
   end
 
   def get_account
@@ -259,22 +243,20 @@ class PayWhirl
     get('/shipping')
   end
 
-  def get_shipping_rule(customer_id = nil)
-    format = "/shipping/#{customer_id}"
-    get(format)
-  end
-
-  def get_tax_rule(customer_id = nil)
-    format = "/tax/#{customer_id}"
-    get(format)
+  def get_shipping_rule(shipping_rule_id)
+    get("/shipping/#{shipping_rule_id}")
   end
 
   def get_tax_rules
     get('/tax')
   end
 
-  def get_multi_auth_token(data = nil)
-    post('/multiauth', data)
+  def get_tax_rule(tax_rule_id)
+    get("/tax/#{tax_rule_id}")
+  end
+
+  def get_multi_auth_token(params)
+    post('/multiauth', params)
   end
 
   protected
