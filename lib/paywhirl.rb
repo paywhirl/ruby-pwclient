@@ -1,19 +1,22 @@
 # frozen_string_literal: true
 
-# PayWhirl API Ruby Library
+# PayWhirl API Client
 #
 # Documentation can be obtained at https://api.paywhirl.com
 #
 # API keys can be obtained at https://app.paywhirl.com/api-keys
 #
 # Example Usage:
-# ==================
-# <your_program>
-# require_relative 'PayWhirl'
+# ==============
+#
+# require 'paywhirl'
+#
 # api_key = '<your_api_key_here>'
 # api_secret = '<your_secret_key_here>'
+#
 # paywhirl = PayWhirl.new(api_key, api_secret)
-# paywhirl.<method>
+# puts paywhirl.get_account
+#
 
 require 'paywhirl/version'
 require 'json'
