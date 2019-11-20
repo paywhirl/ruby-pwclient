@@ -1,6 +1,5 @@
-source "https://rubygems.org"
+# frozen_string_literal: true
 
-git_source(:github) {|Ruby PayWhirl Client| "https://github.com/paywhirl/ruby-pwclient" }
+source 'https://rubygems.org'
 
-# Specify your gem's dependencies in paywhirl.gemspec
 gemspec
