@@ -124,9 +124,20 @@ class PayWhirl
     post('/subscribe/customer', params)
   end
 
-  def update_subscription(subscription_id, plan_id, quantity = nil)
-    params = { subscription_id: subscription_id, plan_id: plan_id }
+  def update_subscription(subscription_id, plan_id, quantity = nil,
+                          address_id: nil, installments_left: nil,
+                          trial_end: nil, card_id: nil)
+    params = {
+      subscription_id: subscription_id,
+      plan_id: plan_id
+    }
+
     params[:quantity] = quantity if quantity
+    params[:address_id] = address_id if address_id
+    params[:installments_left] = installments_left if installments_left
+    params[:trial_end] = trial_end if trial_end
+    params[:card_id] = card_id if card_id
+
     post('/update/subscription', params)
   end
 

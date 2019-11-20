@@ -7,5 +7,8 @@ Metrics/ClassLength:
 Metrics/LineLength:
   Max: 100
 
+Metrics/ParameterLists:
+  Max: 10
+
 Naming/AccessorMethodName:
   Enabled: false
