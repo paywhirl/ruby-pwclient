@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
 module Paywhirl
-  VERSION = '0.0.4'
+  VERSION = '1.3'
 end
