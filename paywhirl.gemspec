@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.name          = 'paywhirl'
   spec.version       = Paywhirl::VERSION
   spec.authors       = ['PayWhirl']
-  spec.email         = ['megrims@gmail.com']
-  spec.required_ruby_version = '>= 1.9'
+  spec.email         = ['developer@paywhirl.com']
+  spec.required_ruby_version = '>= 2.3'
   spec.summary       = 'API library for simplifying interaction with PayWhirl services.'
   spec.homepage      = 'https://github.com/paywhirl/ruby-pwclient'
   spec.license       = 'MIT'
@@ -26,5 +26,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'minitest', '~> 5.0'
   spec.add_development_dependency 'rake', '~> 10.0'
   spec.add_development_dependency 'rubocop'
-  spec.add_runtime_dependency 'faraday', '~> 0.13.1'
+  spec.add_runtime_dependency 'faraday', '~> 1.0.0'
 end
