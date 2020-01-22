@@ -25,7 +25,7 @@ functionality added, feel free to submit an issue or a pull request.
 
 ## Requirements
 
-- [Ruby] >= 1.9
+- [Ruby] >= 2.3
 - [Faraday](https://rubygems.org/gems/faraday)
 
 ## Installation
