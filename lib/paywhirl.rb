@@ -178,7 +178,7 @@ class PayWhirl
   end
 
   def create_invoice(params)
-    post('/invoices', params)
+    post('/invoices', params, true)
   end
 
   def delete_invoice(invoice_id)
@@ -275,14 +275,17 @@ class PayWhirl
 
   protected
 
-  def request(method, path, params = nil)
-    conn = Faraday.new(url: @api_base, headers: @headers)
+  def request(method, path, params = nil, as_json = false)
+    headers = @headers.dup
+    headers['Content-Type'] = 'application/json' if as_json
+    params = params.to_json if as_json
+    conn = Faraday.new(url: @api_base, headers: headers)
     response = conn.public_send(method, path, params)
     JSON.parse(response.body)
   end
 
-  def post(path, params = nil)
-    request(:post, path, params)
+  def post(path, params = nil, as_json = false)
+    request(:post, path, params, as_json)
   end
 
   def get(path, params = nil)
