@@ -45,6 +45,18 @@ class PayWhirl
     get("/customer/address/#{address_id}")
   end
 
+  def create_address(params)
+    post('/customer/address', params)
+  end
+
+  def update_address(address_id, params)
+    patch("/customer/address/#{address_id}", params)
+  end
+
+  def delete_address(address_id)
+    delete("/customer/address/#{address_id}")
+  end
+
   def get_profile(customer_id)
     get("/customer/profile/#{customer_id}")
   end
@@ -286,6 +298,14 @@ class PayWhirl
 
   def post(path, params = nil, as_json = false)
     request(:post, path, params, as_json)
+  end
+
+  def patch(path, params = nil, as_json = false)
+    request(:patch, path, params, as_json)
+  end
+
+  def delete(path, params = nil, as_json = false)
+    request(:delete, path, params, as_json)
   end
 
   def get(path, params = nil)
