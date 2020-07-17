@@ -120,8 +120,8 @@ class PayWhirl
     post('/update/plan', params)
   end
 
-  def get_subscriptions(customer_id)
-    get("/subscriptions/#{customer_id}")
+  def get_subscriptions(customer_id, status = "active")
+    get("/subscriptions/#{customer_id}", {status: status})
   end
 
   def get_subscription(subscription_id)
