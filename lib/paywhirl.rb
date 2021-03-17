@@ -165,6 +165,13 @@ class PayWhirl
     get("/invoice/#{invoice_id}")
   end
 
+  def update_invoice_next_payment_attempt(invoice_id, next_payment_attempt_timestamp)
+    data = {
+      "next_payment_attempt" => next_payment_attempt_timestamp
+    }
+    post("/invoices/#{invoice_id}/next-payment-date", data)
+  end
+
   def process_invoice(invoice_id, params = {})
     post("/invoice/#{invoice_id}/process", params)
   end
